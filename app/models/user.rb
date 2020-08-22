@@ -1,6 +1,7 @@
 class User < ApplicationRecord
     has_secure_password #password_digest
-    validates :name, :email, :kind, :password_digest, presence: true
+    validates :name, :email, presence: true
+    validates :password, presence: true, length: {minimum: 6}
     validates :email, uniqueness: true
 #Parte para enumerar os tipos de usuários existentes
     enum kind:{
@@ -8,5 +9,9 @@ class User < ApplicationRecord
         student: 1,
         teacher: 2,
         secretary: 3  
+        #Se o tipo não for selecionado, retornar como aluno
+        if kind == nil{
+            kind = 1
+        }
     }
 end
