@@ -73,6 +73,13 @@ class UsersController < ApplicationController
       render json: {error: "Sem permissão"}
     end
   end
+
+  def open_class #Tentativa da requisição do MVP3 de a secretaria poder abrir vagas de uma materia  na turma, mudando o status dela
+    if kind == 3
+      @class.status = :class_status
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -80,7 +87,7 @@ class UsersController < ApplicationController
     end
 
     # Only allow a trusted parameter "white list" through.
-    def user_params
-      params.require(:user).permit(:addtheme, :name, :email, :kind,:password,:password_confirmation, :password_digest)
+    def user_params               #variaveis usadas para secretaria ou admin também se encontram aqui, não sei se era assim que tinha que fazer
+      params.require(:user).permit(:class_status,:addtheme, :name, :email, :kind,:password,:password_confirmation, :password_digest)
     end
 end
