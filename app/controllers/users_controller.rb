@@ -32,7 +32,7 @@ class UsersController < ApplicationController
       token = JsonWebToken.encode(user_id: @user.id)
       render json: {token: token, user: @user}
     else
-      render json: {error: "unauthorized"}, status: unauthorized
+      render json: {error: "Acesso não autorizado"}
     end
     #Parte para confirmação de admin por email e senha
     if @user.kind == 0
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
             token = JsonWebToken.encode(user_id: @user.id)
             render json: {token: token, user: @user}
         else
-            render json: {error: "unauthorized"}, status: unauthorized
+            render json: {error: "Acesso não autorizado"}
         end
     end 
   end
