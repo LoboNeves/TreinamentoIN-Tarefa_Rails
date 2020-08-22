@@ -67,20 +67,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:name, :email, :kind, :password_digest)
-    end
-    #Validação de domínio do email
-    def valid_email
-      if email =~ (/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i)#Validação de email que achei, espero que esteja certo
-        split_email = email.split('@')
-        domain = split_email[1].to_s
-        if domain == '@id.uff.br'
-          render json: email
-        else
-          errors_add(:email, 'domínio de email invalido')
-        end
-      else
-        errors_add(:email, 'email invalido')
-      end
+      params.require(:user).permit(:name, :email, :kind,:password, :password_digest)
     end
 end
