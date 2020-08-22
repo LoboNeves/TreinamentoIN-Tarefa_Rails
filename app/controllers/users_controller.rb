@@ -73,6 +73,15 @@ class UsersController < ApplicationController
       render json: {error: "Sem permissão"}
     end
   end
+  #Função para adicionar pré-requisito se a matéria for diferente da que se quer adicionar o pré-requisito
+  def pre_requirement
+    if kind == 0 || kind == 3
+      if :prerequirement != @user.add_theme
+        render json: @user.pre_requirement
+      else
+        render json: {error: "Não se pode adicionar a mesma matéria no pré-requisito dela"}
+    end
+  end
 
   def open_class #Tentativa da requisição do MVP3 de a secretaria poder abrir vagas de uma materia  na turma, mudando o status dela
     if kind == 3
@@ -88,6 +97,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params               #variaveis usadas para secretaria ou admin também se encontram aqui, não sei se era assim que tinha que fazer
-      params.require(:user).permit(:class_status,:addtheme, :name, :email, :kind,:password,:password_confirmation, :password_digest)
+      params.require(:user).permit(:pre_requirement, :class_status,:addtheme, :name, :email, :kind,:password,:password_confirmation, :password_digest)
     end
 end
