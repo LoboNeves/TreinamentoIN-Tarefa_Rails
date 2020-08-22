@@ -59,6 +59,20 @@ class UsersController < ApplicationController
     @user.destroy
   end
 
+  def index_themes #Função para mostrar as materias que o professor pode dar aula depois de a função de baixo add a materia
+    @users.addtheme = addtheme.all
+
+    render json: @users.addtheme
+  end
+
+  def add_theme #Função para add matéria, não tenho certeza se é assim que se deve fazer, espero que pelo menos a lógica senha considerada
+    if kind == 0 || kind == 3
+      render json: @user.add_theme #Parametro para adicionar materia quando usuário for confirmado como secretaria ou admin
+      index_themes #Mostrar todas as materias que podem dar aula depois de ter adicionado uma nova.
+    else
+      render json: {error: "Sem permissão"}
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -67,6 +81,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:name, :email, :kind,:password,:password_confirmation, :password_digest)
+      params.require(:user).permit(:addtheme, :name, :email, :kind,:password,:password_confirmation, :password_digest)
     end
 end
