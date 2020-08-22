@@ -16,7 +16,7 @@ class User < ApplicationRecord
         if else kind == 1
             @user = @user.student
         #Se for professor enviar para o controller de professor
-        if else kinf == 2
+        if else kind == 2
             @user = @user.teacher
         end
     }
