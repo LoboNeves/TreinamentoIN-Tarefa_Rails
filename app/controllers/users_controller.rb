@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     render json: @user
   end
 
-  # POST /users
+  # POST /users #metodo onde um usuário só pode ser criado a partir do outro, como pedido no documento
   def create
     @user = User.new(user_params)
 
@@ -68,5 +68,19 @@ class UsersController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def user_params
       params.require(:user).permit(:name, :email, :kind, :password_digest)
+    end
+    #Validação de domínio do email
+    def valid_email
+      if email =~ (/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i)#Validação de email que achei, espero que esteja certo
+        split_email = email.split('@')
+        domain = split_email[1].to_s
+        if domain == '@id.uff.br'
+          render json: email
+        else
+          errors_add(:email, 'domínio de email invalido')
+        end
+      else
+        errors_add(:email, 'email invalido')
+      end
     end
 end
