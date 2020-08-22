@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :classes
+  resources :themes
   resources :teachers
   resources :students
   get '/sign_up', to: 'users#index'
