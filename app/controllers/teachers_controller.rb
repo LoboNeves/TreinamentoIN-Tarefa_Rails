@@ -37,6 +37,15 @@ class TeachersController < ApplicationController
   def destroy
     @teacher.destroy
   end
+  #Tentativa de mudando o valor do status para aberto o professor possa alterar o valor de p1 e p2 e receber diretamente a nota final
+  def class_open
+    if :class_status == "open"
+      @teacher.p1 = :p1
+      @teacher.p2 = :p2
+      @teacher.nota_final = (@teacher.p1 + @teacher.p2)/2
+      @student.cr += @teacher.nota_final
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -46,6 +55,6 @@ class TeachersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def teacher_params
-      params.require(:teacher).permit(:registration)
+      params.require(:teacher).permit(:p1, :p2, :registration)
     end
 end

@@ -83,7 +83,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def open_class #Tentativa da requisição do MVP3 de a secretaria poder abrir vagas de uma materia  na turma, mudando o status dela
+  def class_status #Tentativa da requisição do MVP3 de a secretaria poder abrir vagas de uma materia  na turma, mudando o status dela
     if kind == 3
       @class.status = :class_status
     end
